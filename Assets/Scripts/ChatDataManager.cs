@@ -25,6 +25,7 @@ public class ChatDataManager : MonoBehaviour
 	public ChatData chatData;
 	public int curr_scene_script_index = 0;
 	private int curr_speech_index = 0;
+	private int next_scene_index = -1;
 	
 	private string fileName = "SpeechDB_Test";
 	//private string fileName = "ChatDB";
@@ -47,6 +48,7 @@ public class ChatDataManager : MonoBehaviour
 	
 	void Start()
 	{
+		next_scene_index = -1;
 		//chatScrollView.Update_screen();
 		//change bg
 		if(GetSpeech().bg != null && !string.IsNullOrEmpty(GetSpeech().bg))
@@ -79,7 +81,14 @@ public class ChatDataManager : MonoBehaviour
 		
 		if ((HasToBeAnswered && isAnswered) || !HasToBeAnswered)
 		{
-			GetNextSpeech();
+			if(next_scene_index == -1)
+			{
+				GetNextSpeech();
+			}
+			else
+			{
+				Application.LoadLevel(next_scene_index);
+			}
 		}
 	}
 	
@@ -103,7 +112,7 @@ public class ChatDataManager : MonoBehaviour
 		{
 			// Testing..
 			textState = TextState.Processing;
-			
+
 			curr_speech_index++;
 			chatScrollView.UpdateScreen();
 			//change heroin face
@@ -142,10 +151,12 @@ public class ChatDataManager : MonoBehaviour
 			if(isSuccessAnswer)
 			{
 				chatScrollView.UpdateQuestionLabel(ChatData.SceneScript.Speech.SPEAKER.WOMAN, GetSpeech().answerlist[selectedItemIndex].success_reaction);
+				next_scene_index = GetSpeech().answerlist[selectedItemIndex].next_scene_id_if_success;
 			}
 			else
 			{
 				chatScrollView.UpdateQuestionLabel(ChatData.SceneScript.Speech.SPEAKER.WOMAN, GetSpeech().answerlist[selectedItemIndex].fail_reaction);
+				next_scene_index = GetSpeech().answerlist[selectedItemIndex].next_scene_id_if_fail;
 			}
 		}
 		//change heroin face
