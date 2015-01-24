@@ -60,8 +60,6 @@ public class ChatData : ScriptableObject
 				public int    next_scene_id_if_fail;
 				public string success_facelook_filename;
 				public string fail_facelook_filename;
-				public string success_bgm_filename;
-				public string fail_bgm_filename;
 				public bool   asolutely_not;
 				
 			};
@@ -69,7 +67,6 @@ public class ChatData : ScriptableObject
 			public SPEAKER    speaker;
 			public string        bg;
 			public string     bgm_filename;
-			public string     sound_effect_filename;
 			public string     facelook_filename;
 			public string     question;
 			public List<Answer> answerlist;

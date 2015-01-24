@@ -8,7 +8,7 @@ using NPOI.XSSF.UserModel;
 
 public class ExcelToScriptableObject : MonoBehaviour
 {
- //   static readonly string filePath = "Assets/Editor/Data/ExcelData.xlsx";
+//    static readonly string filePath = "Assets/Editor/Data/ExcelData.xlsx";
 	static readonly string filePath = "Assets/Editor/Data/SpeechData.xlsx";
 //	static readonly string chatDataPath = "Assets/Resources/Data/ChatDB.asset";
 	static readonly string chatDataPath = "Assets/Resources/Data/SpeechDB_Test.asset";
@@ -66,11 +66,10 @@ public class ExcelToScriptableObject : MonoBehaviour
 			const int col_question = 3;
 			const int col_bg = 4;
 			const int col_bgm = 5;
-			const int col_sound_effect = 6;
-			const int col_facelook = 7;
-			//const int col_reserved = 8;
-			const int col_answer_num = 9;
-			const int col_answer_first = 10;
+			const int col_facelook = 6;
+			//const int col_reserved = 7;
+			const int col_answer_num = 8;
+			const int col_answer_first = 9;
 			
 			//this is row define relate to answer info
 			const int row_answer_content = 0;
@@ -99,11 +98,8 @@ public class ExcelToScriptableObject : MonoBehaviour
 					//set Question
 					speech.question = row.GetCell(col_question).StringCellValue;
 					//set BGM
-					if(row.GetCell(col_bgm) != null && row.GetCell(col_bgm).CellType != CellType.Blank)
+					if(row.GetCell(col_bgm) != null && !row.GetCell(col_bgm).Equals(""))
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
-					//set sound effect
-					if(row.GetCell(col_sound_effect) != null && row.GetCell(col_sound_effect).CellType != CellType.Blank)
-						speech.sound_effect_filename = row.GetCell(col_sound_effect).StringCellValue;
 					//set face
 					if (row.GetCell(col_facelook) != null)
 						speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
@@ -147,9 +143,6 @@ public class ExcelToScriptableObject : MonoBehaviour
 					//set BGM
 					if(row.GetCell(col_bgm) != null && row.GetCell(col_bgm).CellType != CellType.Blank)
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
-					//set sound effect
-					if(row.GetCell(col_sound_effect) != null && row.GetCell(col_sound_effect).CellType != CellType.Blank)
-						speech.sound_effect_filename = row.GetCell(col_sound_effect).StringCellValue;
 					//set face
 					speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
 					//set BG
@@ -189,9 +182,6 @@ public class ExcelToScriptableObject : MonoBehaviour
 					//set BGM
 					if(row.GetCell(col_bgm) != null && !row.GetCell(col_bgm).Equals(""))
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
-					//set sound effect
-					if(row.GetCell(col_sound_effect) != null && row.GetCell(col_sound_effect).CellType != CellType.Blank)
-						speech.sound_effect_filename = row.GetCell(col_sound_effect).StringCellValue;
 					//set BG
 					if(row.GetCell(col_bg) != null && row.GetCell(col_bg).CellType != CellType.Blank)
 						speech.bg = row.GetCell(col_bg).StringCellValue;
@@ -213,13 +203,6 @@ public class ExcelToScriptableObject : MonoBehaviour
 							answer.success_facelook_filename = inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_facelook).StringCellValue; //same col and next row line has success reaction string 
 						if (inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_facelook) != null)
 							answer.fail_facelook_filename = inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_facelook).StringCellValue; //same col and next row line has success reaction string 
-						if (inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_bgm) != null)
-							answer.success_bgm_filename = inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_bgm).StringCellValue; //same col and next row line has success reaction string 
-						if (inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_bgm) != null)
-							answer.fail_bgm_filename = inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_bgm).StringCellValue; //same col and next row line has success reaction string 
-
-
-
 						speech.answerlist.Add(answer); 
 					}
 					inputScreneScript.speech_list.Add(speech);

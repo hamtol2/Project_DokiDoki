@@ -24,7 +24,7 @@ public class ChatScrollView : MonoBehaviour
 //		Update_screen();
 	}
 
-	public void UpdateScreen()
+	public void Update_screen()
 	{
 		ChatData.SceneScript.Speech speech = ChatDataManager.Instance.GetSpeech();
 
