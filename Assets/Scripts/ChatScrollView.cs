@@ -43,13 +43,9 @@ public class ChatScrollView : MonoBehaviour
 			newItem._answerLabel.text = speech.answerlist[ix].contents;
 			grid.AddChild(newItem.transform);
 			newItem.transform.localScale = Vector3.one;
-			newItem.GetComponent<UIButton>().onClick.Add(
-			new EventDelegate(()=> 
-		    {
-				int responseIndex = ix;
-				Debug.Log("responseIndex: " + responseIndex);
-				Debug.Log("ix: " + ix + "count: " + speech.answerlist.Count + " : " + speech.answerlist[ix].success_reaction + " : " + speech.answerlist[ix].fail_reaction);
-			}));
+
+			newItem.responseIndex = ix;
+			newItem.GetComponent<UIButton>().onClick.Add(new EventDelegate(newItem.OnAnswerClicked));
 		}
 		
 		grid.onReposition = ScrollUpdate;
@@ -63,11 +59,5 @@ public class ChatScrollView : MonoBehaviour
 		scrollView.UpdatePosition();
 		scrollView.UpdateScrollbars();
 		scrollView.verticalScrollBar.value = 0f;
-	}
-
-	public void AnswerItemClicked()
-	{
-
-		//Debug.Log("here");
 	}
 }
