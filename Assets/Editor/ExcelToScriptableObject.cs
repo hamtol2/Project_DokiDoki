@@ -42,7 +42,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 
 	static void GetSceneScriptData(ref ChatData inputChatData, IWorkbook inputBook)
 	{
-		for(int scene_index = 0; scene_index < inputBook.NumberOfSheets; scene_index++)
+		for(int scene_index = 1; scene_index < inputBook.NumberOfSheets; scene_index++)
 		{
 			//Get Scene Information
 			ISheet sheet = inputBook.GetSheetAt(scene_index);

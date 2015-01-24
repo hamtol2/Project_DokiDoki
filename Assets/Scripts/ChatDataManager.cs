@@ -22,7 +22,7 @@ public class ChatDataManager : MonoBehaviour
 	public AudioController bmgController;
 	public UISprite characterFace;
 
-    private ChatData chatData;
+    public ChatData chatData;
 	private int curr_scene_script_index = 0;
 	private int curr_speech_index = 0;
 
