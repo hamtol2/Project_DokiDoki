@@ -11,20 +11,30 @@ public class ChatScrollView : MonoBehaviour
 
     void Start()
     {
-		ChatData.SceneScript sceneScript = ChatDataManager.Instance.chatData.scene_script_list[scene_index];
-		questionLabel.text = sceneScript.speech_list[0].question;
+		update_screen();
+    }
 
-		for (int ix = 0; ix < sceneScript.speech_list[0].answerlist.Count; ++ix)
-        {
-            AnswerListItem newItem = Instantiate(prefab) as AnswerListItem;
-			newItem._answerLabel.text = sceneScript.speech_list[0].answerlist[ix].contents;
-            grid.AddChild(newItem.transform);
+	void Update()
+	{
+		//update_screen();
+	}
+
+	private void update_screen()
+	{
+		ChatData.SceneScript.Speech speech = ChatDataManager.Instance.GetSpeech();
+		questionLabel.text = speech.question;
+		
+		for (int ix = 0; ix < speech.answerlist.Count; ++ix)
+		{
+			AnswerListItem newItem = Instantiate(prefab) as AnswerListItem;
+			newItem._answerLabel.text = speech.answerlist[ix].contents;
+			grid.AddChild(newItem.transform);
 			newItem.transform.localScale = Vector3.one;
-        }
-
+		}
+		
 		grid.onReposition = ScrollUpdate;
 		grid.Reposition();
-    }
+	}
 
 	void ScrollUpdate()
 	{

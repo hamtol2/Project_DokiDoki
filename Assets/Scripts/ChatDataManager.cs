@@ -9,8 +9,9 @@ public class ChatDataManager : MonoBehaviour
         get { return _instance; }
     }
 
-    public ChatData chatData;
-
+    private ChatData chatData;
+	private int curr_scene_script_index = 0;
+	private int curr_speech_index = 0;
     void Awake()
     {
         if (_instance == null)
@@ -25,4 +26,20 @@ public class ChatDataManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+	public ChatData.SceneScript.Speech GetSpeech()
+	{
+		return chatData.scene_script_list[curr_scene_script_index].speech_list[curr_speech_index];
+	}
+
+	public void OnClick_Question()
+	{
+		if(curr_speech_index < chatData.scene_script_list[curr_scene_script_index].speech_list.Count)
+			curr_speech_index++;
+	}
+
+	public void OnClick_Answer()
+	{
+		curr_speech_index++;
+	}
 }

@@ -123,8 +123,8 @@ public class ExcelToScriptableObject : MonoBehaviour
 						answer.contents = row.GetCell(col_answer_first + i).StringCellValue;
 						answer.success_reaction = inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_answer_first + i).StringCellValue; //same col and next row line has success reaction string 
 						answer.fail_reaction = inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_answer_first + i).StringCellValue; 
-						//answer.next_scene_id_if_success = (int)inputSheet.GetRow(ix + row_answer_success_next_scene).GetCell(col_answer_first + i).NumericCellValue;
-						//answer.next_scene_id_if_success = (int)inputSheet.GetRow(ix + row_answer_fail_next_scene).GetCell(col_answer_first + i).NumericCellValue;
+						answer.next_scene_id_if_success = (int)inputSheet.GetRow(ix + row_answer_success_next_scene).GetCell(col_answer_first + i).NumericCellValue;
+						answer.next_scene_id_if_success = (int)inputSheet.GetRow(ix + row_answer_fail_next_scene).GetCell(col_answer_first + i).NumericCellValue;
 						speech.answerlist.Add(answer); 
 					}
 					inputScreneScript.speech_list.Add(speech);
