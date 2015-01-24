@@ -73,7 +73,7 @@ public class ChatDataManager : MonoBehaviour
 
 	void GetNextSpeech()
 	{
-		if(curr_speech_index < chatData.scene_script_list[curr_scene_script_index].speech_list.Count)
+		if(curr_speech_index < chatData.scene_script_list[curr_scene_script_index].speech_list.Count - 1)
 		{
 			curr_speech_index++;
 			chatScrollView.Update_screen();

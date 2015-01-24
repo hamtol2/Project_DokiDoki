@@ -28,6 +28,12 @@ public class ChatScrollView : MonoBehaviour
 		//SetBoxStyle();
 		questionLabel.text = speech.question;
 		questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
+
+		// Clear grid first.
+		foreach (Transform item in grid.GetChildList())
+		{
+			Destroy(item.gameObject);
+		}
 		
 		for (int ix = 0; ix < speech.answerlist.Count; ++ix)
 		{
