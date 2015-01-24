@@ -19,6 +19,7 @@ public class ChatDataManager : MonoBehaviour
 	public HeroinReaction heroinReaction;
 	public QuestionBox questionBox;
 	public AnswerBox answerBox;
+	public AudioController bmgController;
 
     private ChatData chatData;
 	private int curr_scene_script_index = 0;
@@ -98,6 +99,9 @@ public class ChatDataManager : MonoBehaviour
 				heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
 			//change box style
 			SetBoxStyle();
+			//Change sound
+			if(GetSpeech().bgm_filename != null && !GetSpeech().bgm_filename.Equals(""))
+				bmgController.ChangeSound(GetSpeech().bgm_filename);
 
 		}
 	}
