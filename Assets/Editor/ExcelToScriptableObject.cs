@@ -8,10 +8,10 @@ using NPOI.XSSF.UserModel;
 
 public class ExcelToScriptableObject : MonoBehaviour
 {
-//    static readonly string filePath = "Assets/Editor/Data/ExcelData.xlsx";
-	static readonly string filePath = "Assets/Editor/Data/SpeechData.xlsx";
-//	static readonly string chatDataPath = "Assets/Resources/Data/ChatDB.asset";
-	static readonly string chatDataPath = "Assets/Resources/Data/SpeechDB_Test.asset";
+    static readonly string filePath = "Assets/Editor/Data/ExcelData.xlsx";
+//	static readonly string filePath = "Assets/Editor/Data/SpeechData.xlsx";
+	static readonly string chatDataPath = "Assets/Resources/Data/ChatDB.asset";
+//	static readonly string chatDataPath = "Assets/Resources/Data/SpeechDB_Test.asset";
 
     [MenuItem("Excel Data Import/Create Scriptable Object %i")]
     static void ImportExcel()
@@ -100,7 +100,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
 					if (row.GetCell(col_facelook) != null)
 						speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
-					string speaker_gender = row.GetCell(col_type).StringCellValue;
+					string speaker_gender = row.GetCell(col_speaker).StringCellValue;
 					if(speaker_gender.Equals("M"))
 					{
 						speech.speaker = ChatData.SceneScript.Speech.SPEAKER.MAN;
@@ -116,6 +116,16 @@ public class ExcelToScriptableObject : MonoBehaviour
 				{
 					ChatData.SceneScript.Speech speech = new ChatData.SceneScript.Speech();
 					speech.speech_type = ChatData.SceneScript.Speech.TYPE.QN;
+					//Set speaker
+					string speaker_gender = row.GetCell(col_speaker).StringCellValue;
+					if(speaker_gender.Equals("M"))
+					{
+						speech.speaker = ChatData.SceneScript.Speech.SPEAKER.MAN;
+					}
+					else
+					{
+						speech.speaker = ChatData.SceneScript.Speech.SPEAKER.WOMAN;
+					}
 					speech.question = row.GetCell(col_question).StringCellValue;
 					if(row.GetCell(col_bgm) != null && !row.GetCell(col_bgm).Equals(""))
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
@@ -137,6 +147,16 @@ public class ExcelToScriptableObject : MonoBehaviour
 				{
 					ChatData.SceneScript.Speech speech = new ChatData.SceneScript.Speech();
 					speech.speech_type = ChatData.SceneScript.Speech.TYPE.QR;
+					//Set speaker
+					string speaker_gender = row.GetCell(col_speaker).StringCellValue;
+					if(speaker_gender.Equals("M"))
+					{
+						speech.speaker = ChatData.SceneScript.Speech.SPEAKER.MAN;
+					}
+					else
+					{
+						speech.speaker = ChatData.SceneScript.Speech.SPEAKER.WOMAN;
+					}
 					speech.question = row.GetCell(col_question).StringCellValue;
 					if(row.GetCell(col_bgm) != null && !row.GetCell(col_bgm).Equals(""))
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;

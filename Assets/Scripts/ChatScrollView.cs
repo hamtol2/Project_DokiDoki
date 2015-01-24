@@ -7,9 +7,12 @@ public class ChatScrollView : MonoBehaviour
     public AnswerListItem prefab;
     public UIGrid grid;
     public UILabel questionLabel;
+	public UILabel speakerLabel;
 	//public QuestionBox questionBox;
 	//public AnswerBox answerBox;
 	public int scene_index;
+	public string playerName;
+	public string girlFriendName;
 
     void Start()
     {
@@ -28,7 +31,7 @@ public class ChatScrollView : MonoBehaviour
 		//SetBoxStyle();
 //		questionLabel.text = speech.question;
 //		questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
-		UpdateQuestionLabel(speech.question);
+		UpdateQuestionLabel(speech.speaker, speech.question);
 
 		// Clear grid first.
 		foreach (Transform item in grid.GetChildList())
@@ -52,9 +55,17 @@ public class ChatScrollView : MonoBehaviour
 	}
 
 	bool isFishedAdded = false;
-	public void UpdateQuestionLabel(string chat)
+	public void UpdateQuestionLabel(ChatData.SceneScript.Speech.SPEAKER speaker, string chat)
 	{
 		ChatDataManager.Instance.textState = ChatDataManager.TextState.Processing;
+		if(speaker == ChatData.SceneScript.Speech.SPEAKER.MAN)
+		{
+			speakerLabel.text = playerName;
+		}
+		else
+		{
+			speakerLabel.text = girlFriendName;
+		}
 		questionLabel.text = chat;
 		questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
 		if (!isFishedAdded)

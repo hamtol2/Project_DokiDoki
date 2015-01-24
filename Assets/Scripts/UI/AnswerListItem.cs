@@ -23,7 +23,7 @@ public class AnswerListItem : MonoBehaviour
 
 		if (speechData.speech_type == ChatData.SceneScript.Speech.TYPE.QN)
 		{
-			chatScrollView.UpdateQuestionLabel(speechData.answerlist[responseIndex].success_reaction);
+			chatScrollView.UpdateQuestionLabel(ChatData.SceneScript.Speech.SPEAKER.WOMAN, speechData.answerlist[responseIndex].success_reaction);
 
 //			chatScrollView.questionLabel.text = speechData.answerlist[responseIndex].success_reaction;
 //			chatScrollView.questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
