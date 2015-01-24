@@ -11,15 +11,15 @@ public class ChatScrollView : MonoBehaviour
 
     void Start()
     {
-		update_screen();
+		Update_screen();
     }
 
 	void Update()
 	{
-		//update_screen();
+		//Update_screen();
 	}
 
-	private void update_screen()
+	public void Update_screen()
 	{
 		ChatData.SceneScript.Speech speech = ChatDataManager.Instance.GetSpeech();
 		questionLabel.text = speech.question;
@@ -30,6 +30,13 @@ public class ChatScrollView : MonoBehaviour
 			newItem._answerLabel.text = speech.answerlist[ix].contents;
 			grid.AddChild(newItem.transform);
 			newItem.transform.localScale = Vector3.one;
+			newItem.GetComponent<UIButton>().onClick.Add(
+			new EventDelegate(()=> 
+		    {
+				int responseIndex = ix;
+				Debug.Log("responseIndex: " + responseIndex);
+				Debug.Log("ix: " + ix + "count: " + speech.answerlist.Count + " : " + speech.answerlist[ix].success_reaction + " : " + speech.answerlist[ix].fail_reaction);
+			}));
 		}
 		
 		grid.onReposition = ScrollUpdate;
@@ -43,5 +50,11 @@ public class ChatScrollView : MonoBehaviour
 		scrollView.UpdatePosition();
 		scrollView.UpdateScrollbars();
 		scrollView.verticalScrollBar.value = 0f;
+	}
+
+	public void AnswerItemClicked()
+	{
+
+		//Debug.Log("here");
 	}
 }

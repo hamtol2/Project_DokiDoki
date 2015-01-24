@@ -13,27 +13,35 @@ public class ChatData : ScriptableObject
 		public List<Speech> speech_list = new List<Speech>();
 
 		[System.Serializable]
-		public class Speech {
-			public enum TYPE {
+		public class Speech
+		{
+			public enum TYPE
+			{
 				S,  //Stroy
 				QN, //normal sccuess question
 				QR  //Random sccuess question
 				
 			}
-			public enum SPEAKER {
+			public enum SPEAKER
+			{
 				MAN,
 				WOMAN
 			}
 
 			[System.Serializable]
-			public class Answer {
+			public class Answer
+			{
 				public string contents;
 				private string _success_reasction;
-				public string success_reaction {
-					get {
+				public string success_reaction
+				{
+					get
+					{
 						return this._success_reasction;
 					}
-					set {
+
+					set
+					{
 						this._success_reasction = value;
 						if(this._success_reasction == "-")
 						{
