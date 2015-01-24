@@ -9,6 +9,12 @@ public class ChatDataManager : MonoBehaviour
         get { return _instance; }
     }
 
+	public enum TextState
+	{
+		Processing, Finished,
+	}
+
+	public TextState textState;
 	public ChatScrollView chatScrollView;
 	public HeroinReaction heroinReaction;
 	public QuestionBox questionBox;
@@ -102,6 +108,7 @@ public class ChatDataManager : MonoBehaviour
 		{
 			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename;
 		}
+
 		heroinReaction.ChangeFacelook(heroin_facelook_filename);
 
 		//change box style

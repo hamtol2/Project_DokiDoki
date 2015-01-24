@@ -8,6 +8,7 @@ public class QuestionBox : MonoBehaviour {
 		STORY,
 		QUESTION
 	}
+
 	public Vector3 posWhenStory;
 	public Vector3 posWhenQuestion;
 	// Use this for initialization
