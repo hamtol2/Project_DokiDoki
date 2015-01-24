@@ -32,6 +32,7 @@ public class ChatData : ScriptableObject
 			public class Answer
 			{
 				public string contents;
+				[SerializeField]
 				private string _success_reasction;
 				public string success_reaction
 				{

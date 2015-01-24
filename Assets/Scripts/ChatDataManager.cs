@@ -35,7 +35,30 @@ public class ChatDataManager : MonoBehaviour
 		return chatData.scene_script_list[curr_scene_script_index].speech_list[curr_speech_index];
 	}
 
+	private bool isAnswered = false;
 	public void OnClick_Question()
+	{
+		if ((HasToBeAnswered && isAnswered) || !HasToBeAnswered)
+		{
+			GetNextSpeech();
+		}
+	}
+
+	public bool HasToBeAnswered
+	{
+		get
+		{
+			bool hasToBeAnswered = false;
+
+			if (GetSpeech().speech_type == ChatData.SceneScript.Speech.TYPE.QN) hasToBeAnswered = true;
+			if (GetSpeech ().speech_type == ChatData.SceneScript.Speech.TYPE.QR) hasToBeAnswered = true;
+			if (GetSpeech().speech_type == ChatData.SceneScript.Speech.TYPE.S) hasToBeAnswered = false;
+
+			return hasToBeAnswered;
+		}
+	}
+
+	void GetNextSpeech()
 	{
 		if(curr_speech_index < chatData.scene_script_list[curr_scene_script_index].speech_list.Count)
 		{
@@ -46,6 +69,7 @@ public class ChatDataManager : MonoBehaviour
 
 	public void OnClick_Answer()
 	{
-		curr_speech_index++;
+		//curr_speech_index++;
+		isAnswered = true;
 	}
 }

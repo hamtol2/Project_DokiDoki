@@ -24,18 +24,10 @@ public class ChatScrollView : MonoBehaviour
 	public void Update_screen()
 	{
 		ChatData.SceneScript.Speech speech = ChatDataManager.Instance.GetSpeech();
-		//select Box style
-		if(speech.speech_type == ChatData.SceneScript.Speech.TYPE.S)
-		{
-			questionBox.ChangeState(QuestionBox.STATE.STORY);
-			answerBox.ChangeState(AnswerBox.STATE.STORY);
-		}
-		else
-		{
-			questionBox.ChangeState(QuestionBox.STATE.QUESTION);
-			answerBox.ChangeState(AnswerBox.STATE.QUESTION);
-		}
+
+		SetBoxStyle();
 		questionLabel.text = speech.question;
+		questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
 		
 		for (int ix = 0; ix < speech.answerlist.Count; ++ix)
 		{
@@ -44,12 +36,37 @@ public class ChatScrollView : MonoBehaviour
 			grid.AddChild(newItem.transform);
 			newItem.transform.localScale = Vector3.one;
 
-			newItem.responseIndex = ix;
+			newItem.SetSpeechData(ix, speech);
 			newItem.GetComponent<UIButton>().onClick.Add(new EventDelegate(newItem.OnAnswerClicked));
 		}
 		
 		grid.onReposition = ScrollUpdate;
 		grid.Reposition();
+	}
+
+	public void SetBoxStyle()
+	{
+		//select Box style
+		if(ChatDataManager.Instance.GetSpeech().speech_type == ChatData.SceneScript.Speech.TYPE.S)
+		{
+			ShowStoryOnly();
+		}
+		else
+		{
+			ShowChat();
+		}
+	}
+
+	public void ShowStoryOnly()
+	{
+		questionBox.ChangeState(QuestionBox.STATE.STORY);
+		answerBox.ChangeState(AnswerBox.STATE.STORY);
+	}
+
+	public void ShowChat()
+	{
+		questionBox.ChangeState(QuestionBox.STATE.QUESTION);
+		answerBox.ChangeState(AnswerBox.STATE.QUESTION);
 	}
 
 	void ScrollUpdate()
