@@ -22,7 +22,7 @@ public class ChatDataManager : MonoBehaviour
 	public AudioController bmgController;
 	public UISprite characterFace;
 
-    public ChatData chatData;
+    private ChatData chatData;
 	private int curr_scene_script_index = 0;
 	private int curr_speech_index = 0;
 
@@ -47,7 +47,7 @@ public class ChatDataManager : MonoBehaviour
 
 	void Start()
 	{
-		chatScrollView.Update_screen();
+		//chatScrollView.UpdateScreen();
 		//change heroin face
 		//if(!GetSpeech().facelook_filename.Equals(""))
 		//	heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
@@ -98,7 +98,7 @@ public class ChatDataManager : MonoBehaviour
 			textState = TextState.Processing;
 
 			curr_speech_index++;
-			chatScrollView.Update_screen();
+			chatScrollView.UpdateScreen();
 			//change heroin face
 			if (!string.IsNullOrEmpty(GetSpeech().facelook_filename))
 			{
