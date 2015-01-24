@@ -35,9 +35,9 @@ public class ExcelToScriptableObject : MonoBehaviour
                 IRow row = sheet.GetRow(ix);
 
                 ChatData.ChatProperty property = new ChatData.ChatProperty();
-                property.question = row.GetCell(1).StringCellValue;
+                property.question = row.GetCell(2).StringCellValue;
                 
-                for (int jx = 3; jx < 3 + (int)row.GetCell(2).NumericCellValue; ++jx)
+                for (int jx = 4; jx < 4 + (int)row.GetCell(3).NumericCellValue; ++jx)
                 {
                     property.answers.Add(row.GetCell(jx).StringCellValue);
                 }
