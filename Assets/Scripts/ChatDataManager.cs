@@ -40,14 +40,7 @@ public class ChatDataManager : MonoBehaviour
 		if(!GetSpeech().facelook_filename.Equals(""))
 			heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
 		//change box style
-		if(GetSpeech().speech_type == ChatData.SceneScript.Speech.TYPE.S)
-		{
-			ShowStoryOnly();
-		}
-		else
-		{
-			ShowChat();
-		}
+		SetBoxStyle();
 	}
 
 	public ChatData.SceneScript.Speech GetSpeech()
@@ -88,14 +81,7 @@ public class ChatDataManager : MonoBehaviour
 			if(!GetSpeech().facelook_filename.Equals(""))
 				heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
 			//change box style
-			if(GetSpeech().speech_type == ChatData.SceneScript.Speech.TYPE.S)
-			{
-				ShowStoryOnly();
-			}
-			else
-			{
-				ShowChat();
-			}
+			SetBoxStyle();
 
 		}
 	}
@@ -124,13 +110,24 @@ public class ChatDataManager : MonoBehaviour
 		isAnswered = true;
 	}
 
-	public void ShowStoryOnly()
+	void SetBoxStyle()
+	{
+		if(GetSpeech().speech_type == ChatData.SceneScript.Speech.TYPE.S)
+		{
+			ShowStoryOnly();
+		}
+		else
+		{
+			ShowChat();
+		}
+	}
+	void ShowStoryOnly()
 	{
 		questionBox.ChangeState(QuestionBox.STATE.STORY);
 		answerBox.ChangeState(AnswerBox.STATE.STORY);
 	}
 
-	public void ShowChat()
+	void ShowChat()
 	{
 		questionBox.ChangeState(QuestionBox.STATE.QUESTION);
 		answerBox.ChangeState(AnswerBox.STATE.QUESTION);
