@@ -25,16 +25,16 @@ public class AnswerListItem : MonoBehaviour
 		{
 			chatScrollView.questionLabel.text = speechData.answerlist[responseIndex].success_reaction;
 			chatScrollView.questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
-			chatScrollView.ShowStoryOnly();
+			//chatScrollView.ShowStoryOnly();
 			//chatScrollView.SetBoxStyle();
 		}
 		else if (speechData.speech_type == ChatData.SceneScript.Speech.TYPE.QR)
 		{
 			// success / fail.
-			chatScrollView.ShowStoryOnly();
+			//chatScrollView.ShowStoryOnly();
 		}
 
-		ChatDataManager.Instance.OnClick_Answer();
+		ChatDataManager.Instance.OnClick_Answer(responseIndex);
 	}
 
 	public void SetSpeechData(int responseIndex, ChatData.SceneScript.Speech speedData)

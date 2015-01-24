@@ -10,6 +10,9 @@ public class ChatDataManager : MonoBehaviour
     }
 
 	public ChatScrollView chatScrollView;
+	public HeroinReaction heroinReaction;
+	public QuestionBox questionBox;
+	public AnswerBox answerBox;
 
     private ChatData chatData;
 	private int curr_scene_script_index = 0;
@@ -29,6 +32,23 @@ public class ChatDataManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+	void Start()
+	{
+		chatScrollView.Update_screen();
+		//change heroin face
+		if(!GetSpeech().facelook_filename.Equals(""))
+			heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
+		//change box style
+		if(GetSpeech().speech_type == ChatData.SceneScript.Speech.TYPE.S)
+		{
+			ShowStoryOnly();
+		}
+		else
+		{
+			ShowChat();
+		}
+	}
 
 	public ChatData.SceneScript.Speech GetSpeech()
 	{
@@ -64,12 +84,57 @@ public class ChatDataManager : MonoBehaviour
 		{
 			curr_speech_index++;
 			chatScrollView.Update_screen();
+			//change heroin face
+			if(!GetSpeech().facelook_filename.Equals(""))
+				heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
+			//change box style
+			if(GetSpeech().speech_type == ChatData.SceneScript.Speech.TYPE.S)
+			{
+				ShowStoryOnly();
+			}
+			else
+			{
+				ShowChat();
+			}
+
 		}
 	}
 
-	public void OnClick_Answer()
+	public void OnClick_Answer(int selectedItemIndex)
 	{
-		//curr_speech_index++;
+		bool isSuccessAnswer = true;
+		//judge success or fail
+
+
+		//change heroin face
+		string heroin_facelook_filename = "";
+		if(isSuccessAnswer)
+		{
+			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].success_facelook_filename;
+		}
+		else
+		{
+			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename;
+		}
+		heroinReaction.ChangeFacelook(heroin_facelook_filename);
+
+		//change box style
+		ShowStoryOnly();
+
 		isAnswered = true;
 	}
+
+	public void ShowStoryOnly()
+	{
+		questionBox.ChangeState(QuestionBox.STATE.STORY);
+		answerBox.ChangeState(AnswerBox.STATE.STORY);
+	}
+
+	public void ShowChat()
+	{
+		questionBox.ChangeState(QuestionBox.STATE.QUESTION);
+		answerBox.ChangeState(AnswerBox.STATE.QUESTION);
+	}
+
+
 }

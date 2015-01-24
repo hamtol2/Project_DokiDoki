@@ -12,7 +12,7 @@ public class QuestionBox : MonoBehaviour {
 	public Vector3 posWhenQuestion;
 	// Use this for initialization
 	void Start () {
-		posWhenQuestion = transform.localPosition;
+		//posWhenQuestion = transform.localPosition;
 	}
 
 	public void ChangeState(STATE state)
