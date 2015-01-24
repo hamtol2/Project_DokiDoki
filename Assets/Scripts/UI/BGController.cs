@@ -5,7 +5,7 @@ public class BGController : MonoBehaviour {
 
 	public UISprite mySprite;
 
-	public void ChangeFacelook(string spriteName)
+	public void ChangeBG(string spriteName)
 	{
 		mySprite.spriteName = spriteName;
 	}

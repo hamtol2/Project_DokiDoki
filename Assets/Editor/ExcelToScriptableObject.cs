@@ -64,7 +64,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 			const int col_type = 1;
 			const int col_speaker = 2;
 			const int col_question = 3;
-			const int col_fadein = 4;
+			const int col_bg = 4;
 			const int col_bgm = 5;
 			const int col_facelook = 6;
 			//const int col_reserved = 7;
@@ -82,7 +82,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 			//if (row.GetCell(col_type).CellType != CellType.Blank)
 			if (row == null)
 			{
-				Debug.Log("row null");
+				//Debug.Log("row null");
 				ix++;
 				continue;
 			}
@@ -93,13 +93,20 @@ public class ExcelToScriptableObject : MonoBehaviour
 				if(speechtype.Equals("S"))
 				{
 					ChatData.SceneScript.Speech speech = new ChatData.SceneScript.Speech();
+					//set type
 					speech.speech_type = ChatData.SceneScript.Speech.TYPE.S;
+					//set Question
 					speech.question = row.GetCell(col_question).StringCellValue;
-
+					//set BGM
 					if(row.GetCell(col_bgm) != null && !row.GetCell(col_bgm).Equals(""))
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
+					//set face
 					if (row.GetCell(col_facelook) != null)
 						speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
+					//set BG
+					if(row.GetCell(col_bg) != null && row.GetCell(col_bg).CellType != CellType.Blank)
+						speech.bg = row.GetCell(col_bg).StringCellValue;
+					//set speaker
 					string speaker_gender = row.GetCell(col_speaker).StringCellValue;
 					if(speaker_gender.Equals("M"))
 					{
@@ -115,6 +122,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 				else if(speechtype.Equals("QN"))
 				{
 					ChatData.SceneScript.Speech speech = new ChatData.SceneScript.Speech();
+					//set type
 					speech.speech_type = ChatData.SceneScript.Speech.TYPE.QN;
 					//Set speaker
 					string speaker_gender = row.GetCell(col_speaker).StringCellValue;
@@ -126,10 +134,17 @@ public class ExcelToScriptableObject : MonoBehaviour
 					{
 						speech.speaker = ChatData.SceneScript.Speech.SPEAKER.WOMAN;
 					}
+					//set question
 					speech.question = row.GetCell(col_question).StringCellValue;
-					if(row.GetCell(col_bgm) != null && !row.GetCell(col_bgm).Equals(""))
+					//set BGM
+					if(row.GetCell(col_bgm) != null && row.GetCell(col_bgm).CellType != CellType.Blank)
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
+					//set face
 					speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
+					//set BG
+					if(row.GetCell(col_bg) != null && row.GetCell(col_bg).CellType != CellType.Blank)
+					   speech.bg = row.GetCell(col_bg).StringCellValue;
+					//set answer
 					int answer_num = (int)row.GetCell(col_answer_num).NumericCellValue;
 					speech.answerlist = new List<ChatData.SceneScript.Speech.Answer>();
 					for(int i = 0; i < answer_num; i++)
@@ -146,6 +161,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 				else if(speechtype.Equals("QR"))
 				{
 					ChatData.SceneScript.Speech speech = new ChatData.SceneScript.Speech();
+					//set type
 					speech.speech_type = ChatData.SceneScript.Speech.TYPE.QR;
 					//Set speaker
 					string speaker_gender = row.GetCell(col_speaker).StringCellValue;
@@ -157,11 +173,18 @@ public class ExcelToScriptableObject : MonoBehaviour
 					{
 						speech.speaker = ChatData.SceneScript.Speech.SPEAKER.WOMAN;
 					}
+					//set question
 					speech.question = row.GetCell(col_question).StringCellValue;
+					//set BGM
 					if(row.GetCell(col_bgm) != null && !row.GetCell(col_bgm).Equals(""))
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
+					//set BG
+					if(row.GetCell(col_bg) != null && row.GetCell(col_bg).CellType != CellType.Blank)
+						speech.bg = row.GetCell(col_bg).StringCellValue;
+					//set face
 					if (row.GetCell(col_facelook) != null)
 						speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
+					//set answer
 					int answer_num = (int)row.GetCell(col_answer_num).NumericCellValue;
 					speech.answerlist = new List<ChatData.SceneScript.Speech.Answer>();
 					for(int i = 0; i < answer_num; i++)
