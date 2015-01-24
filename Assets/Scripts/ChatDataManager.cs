@@ -16,12 +16,12 @@ public class ChatDataManager : MonoBehaviour
 
 	public TextState textState;
 	public ChatScrollView chatScrollView;
-	//public BGController heroinReaction;
+	public BGController bgController;
 	public QuestionBox questionBox;
 	public AnswerBox answerBox;
 	public AudioController bmgController;
+	public AudioController seController;
 	public UISprite characterFace;
-
     public ChatData chatData;
 	private int curr_scene_script_index = 0;
 	private int curr_speech_index = 0;
@@ -48,11 +48,18 @@ public class ChatDataManager : MonoBehaviour
 	void Start()
 	{
 		chatScrollView.Update_screen();
-		//change heroin face
-		//if(!GetSpeech().facelook_filename.Equals(""))
-		//	heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
+		//change bg
+		if(GetSpeech().bg != null && !string.IsNullOrEmpty(GetSpeech().bg))
+			bgController.ChangeBG(GetSpeech().bg);
+		//Change sound
+		if(GetSpeech().bgm_filename != null && !string.IsNullOrEmpty(GetSpeech().bgm_filename))
+			bmgController.ChangeSound(GetSpeech().bgm_filename);
+		if(GetSpeech().sound_effect_filename != null && !string.IsNullOrEmpty(GetSpeech().sound_effect_filename))
+			seController.ChangeSound(GetSpeech().sound_effect_filename);
+
 		//change box style
 		SetBoxStyle();
+
 	}
 
 	public ChatData.SceneScript.Speech GetSpeech()
@@ -104,13 +111,16 @@ public class ChatDataManager : MonoBehaviour
 			{
 				characterFace.spriteName = GetSpeech().facelook_filename;
 			}
-			//if(!GetSpeech().facelook_filename.Equals(""))
-			//	heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
+			//change bg
+			if(GetSpeech().bg != null && !string.IsNullOrEmpty(GetSpeech().bg))
+				bgController.ChangeBG(GetSpeech().bg);
+			//Change sound
+			if(GetSpeech().bgm_filename != null && !string.IsNullOrEmpty(GetSpeech().bgm_filename))
+				bmgController.ChangeSound(GetSpeech().bgm_filename);
+			if(GetSpeech().sound_effect_filename != null && !string.IsNullOrEmpty(GetSpeech().sound_effect_filename))
+				seController.ChangeSound(GetSpeech().sound_effect_filename);
 			//change box style
 			SetBoxStyle();
-			//Change sound
-			if(GetSpeech().bgm_filename != null && !GetSpeech().bgm_filename.Equals(""))
-				bmgController.ChangeSound(GetSpeech().bgm_filename);
 
 		}
 	}
@@ -122,17 +132,30 @@ public class ChatDataManager : MonoBehaviour
 
 
 		//change heroin face
-		string heroin_facelook_filename = "";
+//		string heroin_facelook_filename = "";
+//		if(isSuccessAnswer)
+//		{
+//			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].success_facelook_filename;
+//		}
+//		else
+//		{
+//			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename;
+//		}
+
+		//heroinReaction.ChangeFacelook(heroin_facelook_filename);
+
+		//Change sound
+		string bgmFileName;
 		if(isSuccessAnswer)
 		{
-			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].success_facelook_filename;
+			bgmFileName = GetSpeech().answerlist[selectedItemIndex].success_bgm_filename;
 		}
 		else
 		{
-			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename;
+			bgmFileName = GetSpeech().answerlist[selectedItemIndex].fail_bgm_filename;
 		}
-
-		//heroinReaction.ChangeFacelook(heroin_facelook_filename);
+		if(bgmFileName != null && !string.IsNullOrEmpty(bgmFileName))
+			bmgController.ChangeSound(bgmFileName);
 
 		//change box style
 		ShowStoryOnly();
