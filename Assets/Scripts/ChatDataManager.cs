@@ -23,7 +23,7 @@ public class ChatDataManager : MonoBehaviour
 	public AudioController seController;
 	public UISprite characterFace;
 	public ChatData chatData;
-	private int curr_scene_script_index = 0;
+	public int curr_scene_script_index = 0;
 	private int curr_speech_index = 0;
 	
 	private string fileName = "SpeechDB_Test";
@@ -130,19 +130,36 @@ public class ChatDataManager : MonoBehaviour
 		bool isSuccessAnswer = true;
 		//judge success or fail
 		
-		
+		if (GetSpeech().speech_type == ChatData.SceneScript.Speech.TYPE.QN)
+		{
+			chatScrollView.UpdateQuestionLabel(ChatData.SceneScript.Speech.SPEAKER.WOMAN, GetSpeech().answerlist[selectedItemIndex].success_reaction);
+		}
+		else if (GetSpeech().speech_type == ChatData.SceneScript.Speech.TYPE.QR)
+		{
+			// success / fail.
+//			isSuccessAnswer = Random.Range(0,2);
+			isSuccessAnswer = Random.Range(0, 10) == 0 ? true : false;
+			if(isSuccessAnswer)
+			{
+				chatScrollView.UpdateQuestionLabel(ChatData.SceneScript.Speech.SPEAKER.WOMAN, GetSpeech().answerlist[selectedItemIndex].success_reaction);
+			}
+			else
+			{
+				chatScrollView.UpdateQuestionLabel(ChatData.SceneScript.Speech.SPEAKER.WOMAN, GetSpeech().answerlist[selectedItemIndex].fail_reaction);
+			}
+		}
 		//change heroin face
-		//        string heroin_facelook_filename = "";
-		//        if(isSuccessAnswer)
-		//        {
-		//            heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].success_facelook_filename;
-		//        }
-		//        else
-		//        {
-		//            heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename;
-		//        }
-		
-		//heroinReaction.ChangeFacelook(heroin_facelook_filename);
+		if (!string.IsNullOrEmpty(GetSpeech().facelook_filename))
+		{
+			if(isSuccessAnswer)
+			{
+				characterFace.spriteName = GetSpeech().answerlist[selectedItemIndex].success_facelook_filename;
+			}
+			else
+			{
+				characterFace.spriteName = GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename;
+			}
+		}
 		
 		//Change sound
 		string bgmFileName;
