@@ -30,7 +30,7 @@ public class ChatDataManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-			chatData = Resources.Load("Data/SpeechDB_Test") as ChatData;
+			chatData = Resources.Load("Data/ChatDB") as ChatData;
 
             DontDestroyOnLoad(this.gameObject);
         }
