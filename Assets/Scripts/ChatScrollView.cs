@@ -7,6 +7,8 @@ public class ChatScrollView : MonoBehaviour
     public AnswerListItem prefab;
     public UIGrid grid;
     public UILabel questionLabel;
+	public QuestionBox questionBox;
+	public AnswerBox answerBox;
 	public int scene_index;
 
     void Start()
@@ -22,6 +24,17 @@ public class ChatScrollView : MonoBehaviour
 	public void Update_screen()
 	{
 		ChatData.SceneScript.Speech speech = ChatDataManager.Instance.GetSpeech();
+		//select Box style
+		if(speech.speech_type == ChatData.SceneScript.Speech.TYPE.S)
+		{
+			questionBox.ChangeState(QuestionBox.STATE.STORY);
+			answerBox.ChangeState(AnswerBox.STATE.STORY);
+		}
+		else
+		{
+			questionBox.ChangeState(QuestionBox.STATE.QUESTION);
+			answerBox.ChangeState(AnswerBox.STATE.QUESTION);
+		}
 		questionLabel.text = speech.question;
 		
 		for (int ix = 0; ix < speech.answerlist.Count; ++ix)
