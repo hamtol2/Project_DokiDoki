@@ -4,12 +4,62 @@ using System.Collections.Generic;
 
 public class ChatData : ScriptableObject
 {
-    public List<ChatProperty> list = new List<ChatProperty>();
+	public List<SceneScript> scene_script_list = new List<SceneScript>();
 
 	[System.Serializable]
-    public class ChatProperty
+    public class SceneScript
     {
-        public string question;
-        public List<string> answers = new List<string>();
+		public int scene_num;
+		public List<Speech> speech_list = new List<Speech>();
+
+		[System.Serializable]
+		public class Speech {
+			public enum TYPE {
+				S,  //Stroy
+				QN, //normal sccuess question
+				QR  //Random sccuess question
+				
+			}
+			public enum SPEAKER {
+				MAN,
+				WOMAN
+			}
+
+			[System.Serializable]
+			public class Answer {
+				public string contents;
+				private string _success_reasction;
+				public string success_reaction {
+					get {
+						return this._success_reasction;
+					}
+					set {
+						this._success_reasction = value;
+						if(this._success_reasction == "-")
+						{
+							asolutely_not = true;
+						}
+						else
+						{
+							asolutely_not = false;
+						}
+						//next_scene_id_if_success = -1;
+					}
+				}
+				public string fail_reaction;
+				public int    next_scene_id_if_success;
+				public int    next_scene_id_if_fail;
+				public bool   asolutely_not;
+				
+			};
+			public TYPE       speech_type;
+			public SPEAKER    speaker;
+			public int        time;
+			public int        fadein_time;
+			public int        fadeout_time;
+			public string     question;
+			public List<Answer> answerlist;
+		};
+
     }
 }
