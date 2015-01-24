@@ -20,6 +20,7 @@ public class ChatDataManager : MonoBehaviour
 	public QuestionBox questionBox;
 	public AnswerBox answerBox;
 	public AudioController bmgController;
+	public UISprite characterFace;
 
     private ChatData chatData;
 	private int curr_scene_script_index = 0;
@@ -95,6 +96,10 @@ public class ChatDataManager : MonoBehaviour
 			curr_speech_index++;
 			chatScrollView.Update_screen();
 			//change heroin face
+			if (!string.IsNullOrEmpty(GetSpeech().facelook_filename))
+			{
+				characterFace.spriteName = GetSpeech().facelook_filename;
+			}
 			//if(!GetSpeech().facelook_filename.Equals(""))
 			//	heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
 			//change box style
