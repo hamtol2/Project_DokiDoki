@@ -8,10 +8,10 @@ using NPOI.XSSF.UserModel;
 
 public class ExcelToScriptableObject : MonoBehaviour
 {
-    static readonly string filePath = "Assets/Editor/Data/ExcelData.xlsx";
-//	static readonly string filePath = "Assets/Editor/Data/SpeechData.xlsx";
-	static readonly string chatDataPath = "Assets/Resources/Data/ChatDB.asset";
-//	static readonly string chatDataPath = "Assets/Resources/Data/SpeechDB_Test.asset";
+//    static readonly string filePath = "Assets/Editor/Data/ExcelData.xlsx";
+	static readonly string filePath = "Assets/Editor/Data/SpeechData.xlsx";
+//	static readonly string chatDataPath = "Assets/Resources/Data/ChatDB.asset";
+	static readonly string chatDataPath = "Assets/Resources/Data/SpeechDB_Test.asset";
 
     [MenuItem("Excel Data Import/Create Scriptable Object %i")]
     static void ImportExcel()
@@ -107,7 +107,9 @@ public class ExcelToScriptableObject : MonoBehaviour
 					if(row.GetCell(col_bg) != null && row.GetCell(col_bg).CellType != CellType.Blank)
 						speech.bg = row.GetCell(col_bg).StringCellValue;
 					//set speaker
-					string speaker_gender = row.GetCell(col_speaker).StringCellValue;
+					string speaker_gender = string.Empty;
+					if (row.GetCell(col_speaker) != null && row.GetCell(col_speaker).CellType != CellType.Blank)
+						speaker_gender = row.GetCell(col_speaker).StringCellValue;
 					if(speaker_gender.Equals("M"))
 					{
 						speech.speaker = ChatData.SceneScript.Speech.SPEAKER.MAN;
@@ -125,7 +127,9 @@ public class ExcelToScriptableObject : MonoBehaviour
 					//set type
 					speech.speech_type = ChatData.SceneScript.Speech.TYPE.QN;
 					//Set speaker
-					string speaker_gender = row.GetCell(col_speaker).StringCellValue;
+					string speaker_gender = string.Empty;
+					if (row.GetCell(col_speaker) != null && row.GetCell(col_speaker).CellType != CellType.Blank)
+						speaker_gender = row.GetCell(col_speaker).StringCellValue;
 					if(speaker_gender.Equals("M"))
 					{
 						speech.speaker = ChatData.SceneScript.Speech.SPEAKER.MAN;

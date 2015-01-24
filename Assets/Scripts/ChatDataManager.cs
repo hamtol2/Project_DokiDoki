@@ -26,12 +26,16 @@ public class ChatDataManager : MonoBehaviour
 	private int curr_scene_script_index = 0;
 	private int curr_speech_index = 0;
 
+	private string fileName = "SpeechDB_Test";
+	//private string fileName = "ChatDB";
+
     void Awake()
     {
         if (_instance == null)
         {
             _instance = this;
-			chatData = Resources.Load("Data/ChatDB") as ChatData;
+//			chatData = Resources.Load("Data/ChatDB") as ChatData;
+			chatData = Resources.Load("Data/" + fileName) as ChatData;
 
             DontDestroyOnLoad(this.gameObject);
         }
