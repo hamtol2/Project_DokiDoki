@@ -61,8 +61,8 @@ public class ExcelToScriptableObject : MonoBehaviour
 			const int col_speaker = 2;
 			const int col_question = 3;
 			const int col_fadein = 4;
-			//const int col_sound = 5;
-			//const int col_heroin_img = 6;
+			const int col_bgm = 5;
+			const int col_facelook = 6;
 			//const int col_reserved = 7;
 			const int col_answer_num = 8;
 			const int col_answer_first = 9;
@@ -81,6 +81,9 @@ public class ExcelToScriptableObject : MonoBehaviour
 					ChatData.SceneScript.Speech speech = new ChatData.SceneScript.Speech();
 					speech.speech_type = ChatData.SceneScript.Speech.TYPE.S;
 					speech.question = row.GetCell(col_question).StringCellValue;
+					if(!row.GetCell(col_bgm).Equals(""))
+						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
+					speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
 					string speaker_gender = row.GetCell(col_type).StringCellValue;
 					if(speaker_gender.Equals("M"))
 					{
@@ -98,6 +101,9 @@ public class ExcelToScriptableObject : MonoBehaviour
 					ChatData.SceneScript.Speech speech = new ChatData.SceneScript.Speech();
 					speech.speech_type = ChatData.SceneScript.Speech.TYPE.QN;
 					speech.question = row.GetCell(col_question).StringCellValue;
+					if(!row.GetCell(col_bgm).Equals(""))
+						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
+					speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
 					int answer_num = (int)row.GetCell(col_answer_num).NumericCellValue;
 					speech.answerlist = new List<ChatData.SceneScript.Speech.Answer>();
 					for(int i = 0; i < answer_num; i++)
@@ -105,6 +111,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 						ChatData.SceneScript.Speech.Answer answer = new ChatData.SceneScript.Speech.Answer();
 						answer.contents = row.GetCell(col_answer_first + i).StringCellValue;
 						answer.success_reaction = inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_answer_first + i).StringCellValue; //same col and next row line has success reaction string 
+						answer.success_facelook_filename = inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_facelook).StringCellValue; //same col and next row line has success reaction string 
 						speech.answerlist.Add(answer); 
 					}
 					inputScreneScript.speech_list.Add(speech);
@@ -115,6 +122,9 @@ public class ExcelToScriptableObject : MonoBehaviour
 					ChatData.SceneScript.Speech speech = new ChatData.SceneScript.Speech();
 					speech.speech_type = ChatData.SceneScript.Speech.TYPE.QR;
 					speech.question = row.GetCell(col_question).StringCellValue;
+					if(!row.GetCell(col_bgm).Equals(""))
+						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
+					speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
 					int answer_num = (int)row.GetCell(col_answer_num).NumericCellValue;
 					speech.answerlist = new List<ChatData.SceneScript.Speech.Answer>();
 					for(int i = 0; i < answer_num; i++)
@@ -125,6 +135,8 @@ public class ExcelToScriptableObject : MonoBehaviour
 						answer.fail_reaction = inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_answer_first + i).StringCellValue; 
 						answer.next_scene_id_if_success = (int)inputSheet.GetRow(ix + row_answer_success_next_scene).GetCell(col_answer_first + i).NumericCellValue;
 						answer.next_scene_id_if_success = (int)inputSheet.GetRow(ix + row_answer_fail_next_scene).GetCell(col_answer_first + i).NumericCellValue;
+						answer.success_facelook_filename = inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_facelook).StringCellValue; //same col and next row line has success reaction string 
+						answer.fail_facelook_filename = inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_facelook).StringCellValue; //same col and next row line has success reaction string 
 						speech.answerlist.Add(answer); 
 					}
 					inputScreneScript.speech_list.Add(speech);

@@ -57,6 +57,8 @@ public class ChatData : ScriptableObject
 				public string fail_reaction;
 				public int    next_scene_id_if_success;
 				public int    next_scene_id_if_fail;
+				public string success_facelook_filename;
+				public string fail_facelook_filename;
 				public bool   asolutely_not;
 				
 			};
@@ -65,6 +67,8 @@ public class ChatData : ScriptableObject
 			public int        time;
 			public int        fadein_time;
 			public int        fadeout_time;
+			public string     bgm_filename;
+			public string     facelook_filename;
 			public string     question;
 			public List<Answer> answerlist;
 		};
