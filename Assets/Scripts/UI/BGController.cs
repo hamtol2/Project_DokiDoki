@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeroinReaction : MonoBehaviour {
+public class BGController : MonoBehaviour {
 
 	public UISprite mySprite;
 

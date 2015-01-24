@@ -16,7 +16,7 @@ public class ChatDataManager : MonoBehaviour
 
 	public TextState textState;
 	public ChatScrollView chatScrollView;
-	public HeroinReaction heroinReaction;
+	//public BGController heroinReaction;
 	public QuestionBox questionBox;
 	public AnswerBox answerBox;
 	public AudioController bmgController;
@@ -44,8 +44,8 @@ public class ChatDataManager : MonoBehaviour
 	{
 		chatScrollView.Update_screen();
 		//change heroin face
-		if(!GetSpeech().facelook_filename.Equals(""))
-			heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
+		//if(!GetSpeech().facelook_filename.Equals(""))
+		//	heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
 		//change box style
 		SetBoxStyle();
 	}
@@ -95,8 +95,8 @@ public class ChatDataManager : MonoBehaviour
 			curr_speech_index++;
 			chatScrollView.Update_screen();
 			//change heroin face
-			if(!GetSpeech().facelook_filename.Equals(""))
-				heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
+			//if(!GetSpeech().facelook_filename.Equals(""))
+			//	heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
 			//change box style
 			SetBoxStyle();
 			//Change sound
@@ -123,7 +123,7 @@ public class ChatDataManager : MonoBehaviour
 			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename;
 		}
 
-		heroinReaction.ChangeFacelook(heroin_facelook_filename);
+		//heroinReaction.ChangeFacelook(heroin_facelook_filename);
 
 		//change box style
 		ShowStoryOnly();
