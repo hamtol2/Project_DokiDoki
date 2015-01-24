@@ -7,6 +7,6 @@ public class HeroinReaction : MonoBehaviour {
 
 	public void ChangeFacelook(string spriteName)
 	{
-		//mySprite.spriteName = spriteName;
+		mySprite.spriteName = spriteName;
 	}
 }
