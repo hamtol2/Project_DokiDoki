@@ -26,8 +26,9 @@ public class ChatScrollView : MonoBehaviour
 		ChatData.SceneScript.Speech speech = ChatDataManager.Instance.GetSpeech();
 
 		//SetBoxStyle();
-		questionLabel.text = speech.question;
-		questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
+//		questionLabel.text = speech.question;
+//		questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
+		UpdateQuestionLabel(speech.question);
 
 		// Clear grid first.
 		foreach (Transform item in grid.GetChildList())
@@ -48,6 +49,19 @@ public class ChatScrollView : MonoBehaviour
 		
 		grid.onReposition = ScrollUpdate;
 		grid.Reposition();
+	}
+
+	bool isFishedAdded = false;
+	public void UpdateQuestionLabel(string chat)
+	{
+		ChatDataManager.Instance.textState = ChatDataManager.TextState.Processing;
+		questionLabel.text = chat;
+		questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
+		if (!isFishedAdded)
+		{
+			questionLabel.GetComponent<TypewriterEffect>().onFinished.Add(new EventDelegate(()=> { ChatDataManager.Instance.textState = ChatDataManager.TextState.Finished; } ));
+			isFishedAdded = true;
+		}
 	}
 
 //	public void SetBoxStyle()

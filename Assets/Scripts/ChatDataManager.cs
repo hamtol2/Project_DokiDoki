@@ -57,6 +57,13 @@ public class ChatDataManager : MonoBehaviour
 	private bool isAnswered = false;
 	public void OnClick_Question()
 	{
+		if (textState == TextState.Processing)
+		{
+			chatScrollView.questionLabel.GetComponent<TypewriterEffect>().Finish();
+
+			return;
+		}
+
 		if ((HasToBeAnswered && isAnswered) || !HasToBeAnswered)
 		{
 			GetNextSpeech();
@@ -81,6 +88,9 @@ public class ChatDataManager : MonoBehaviour
 	{
 		if(curr_speech_index < chatData.scene_script_list[curr_scene_script_index].speech_list.Count - 1)
 		{
+			// Testing..
+			textState = TextState.Processing;
+
 			curr_speech_index++;
 			chatScrollView.Update_screen();
 			//change heroin face
