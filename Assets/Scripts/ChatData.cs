@@ -65,9 +65,7 @@ public class ChatData : ScriptableObject
 			};
 			public TYPE       speech_type;
 			public SPEAKER    speaker;
-			public int        time;
-			public int        fadein_time;
-			public int        fadeout_time;
+			public string        bg;
 			public string     bgm_filename;
 			public string     facelook_filename;
 			public string     question;

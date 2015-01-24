@@ -16,7 +16,7 @@ public class ChatDataManager : MonoBehaviour
 
 	public TextState textState;
 	public ChatScrollView chatScrollView;
-	//public BGController heroinReaction;
+	public BGController bgController;
 	public QuestionBox questionBox;
 	public AnswerBox answerBox;
 	public AudioController bmgController;
@@ -43,9 +43,10 @@ public class ChatDataManager : MonoBehaviour
 	void Start()
 	{
 		chatScrollView.Update_screen();
-		//change heroin face
-		//if(!GetSpeech().facelook_filename.Equals(""))
-		//	heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
+		//change background image
+		string bg = GetSpeech().bg;
+		if(!string.IsNullOrEmpty(bg))
+			bgController.ChangeBG(bg);
 		//change box style
 		SetBoxStyle();
 	}
@@ -94,9 +95,9 @@ public class ChatDataManager : MonoBehaviour
 
 			curr_speech_index++;
 			chatScrollView.Update_screen();
-			//change heroin face
-			//if(!GetSpeech().facelook_filename.Equals(""))
-			//	heroinReaction.ChangeFacelook(GetSpeech().facelook_filename);
+			//change background image
+			if(!string.IsNullOrEmpty(GetSpeech().bg))
+				bgController.ChangeBG(GetSpeech().bg);
 			//change box style
 			SetBoxStyle();
 			//Change sound
@@ -113,17 +114,20 @@ public class ChatDataManager : MonoBehaviour
 
 
 		//change heroin face
-		string heroin_facelook_filename = "";
-		if(isSuccessAnswer)
-		{
-			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].success_facelook_filename;
-		}
-		else
-		{
-			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename;
-		}
+//		string heroin_facelook_filename = "";
+//		if(isSuccessAnswer)
+//		{
+//			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].success_facelook_filename;
+//		}
+//		else
+//		{
+//			heroin_facelook_filename = GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename;
+//		}
 
 		//heroinReaction.ChangeFacelook(heroin_facelook_filename);
+		//change background image
+		if(!string.IsNullOrEmpty(GetSpeech().bg))
+			bgController.ChangeBG(GetSpeech().bg);
 
 		//change box style
 		ShowStoryOnly();
