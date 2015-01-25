@@ -10,7 +10,7 @@ public class CharacterStater : MonoBehaviour
 		sprites = GetComponentsInChildren<UISprite>();
 	}
 
-	void Start()
+	public void StartFadeShowing()
 	{
 		StartCoroutine("FadeInCharacter");
 	}
@@ -32,5 +32,21 @@ public class CharacterStater : MonoBehaviour
 		}
 
 		ChatDataManager.Instance.chatScrollView.UpdateScreen();
+	}
+
+	public void ChangeFace(string filename)
+	{
+		if(filename.Equals("trans"))
+		{
+			sprites[0].spriteName = filename;
+		}
+		else
+		{
+			sprites[0].spriteName = "girl";
+			Color color = sprites[0].color;
+			color.a = 1f;
+			sprites[0].color = color;
+		}
+		sprites[1].spriteName = filename;
 	}
 }

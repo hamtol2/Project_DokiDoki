@@ -21,7 +21,9 @@ public class ChatDataManager : MonoBehaviour
 	public AnswerBox answerBox;
 	public AudioController bmgController;
 	public AudioController seController;
-	public UISprite characterFace;
+	//public UISprite characterFace;
+	public CharacterStater characterFace;
+	public MyFader myFader;
 	public ChatData chatData;
 	public int curr_scene_script_index = 0;
 	private int curr_speech_index = 0;
@@ -38,11 +40,11 @@ public class ChatDataManager : MonoBehaviour
 			//            chatData = Resources.Load("Data/ChatDB") as ChatData;
 			chatData = Resources.Load("Data/" + fileName) as ChatData;
 			
-			DontDestroyOnLoad(this.gameObject);
+			//DontDestroyOnLoad(this.gameObject);
 		}
 		else
 		{
-			Destroy(this.gameObject);
+			//Destroy(this.gameObject);
 		}
 	}
 	
@@ -50,6 +52,15 @@ public class ChatDataManager : MonoBehaviour
 	{
 		next_scene_index = -1;
 		//chatScrollView.Update_screen();
+		//Intro do not use fad in character function
+		if(Application.loadedLevel == 1)
+		{
+			chatScrollView.UpdateScreen();
+		}
+		else
+		{
+			characterFace.StartFadeShowing();
+		}
 		//change bg
 		if(GetSpeech().bg != null && !string.IsNullOrEmpty(GetSpeech().bg))
 			bgController.ChangeBG(GetSpeech().bg);
@@ -81,13 +92,29 @@ public class ChatDataManager : MonoBehaviour
 		
 		if ((HasToBeAnswered && isAnswered) || !HasToBeAnswered)
 		{
-			if(next_scene_index == -1)
+
+			//GAME OVER have to go intro scene
+			if(GetSpeech().question.Equals("GAME OVER"))
 			{
-				GetNextSpeech();
+				myFader.StartFade(0);
+				//Application.LoadLevel(0);
+			}
+			else if(Application.loadedLevel == 1 && curr_speech_index == (chatData.scene_script_list[curr_scene_script_index].speech_list.Count - 1))
+			{
+				myFader.StartFade(2);
+				//Application.LoadLevel(2);
 			}
 			else
 			{
-				Application.LoadLevel(next_scene_index);
+				if(next_scene_index == -1)
+				{
+					GetNextSpeech();
+				}
+				else
+				{
+					myFader.StartFade(next_scene_index);
+					//Application.LoadLevel(next_scene_index);
+				}
 			}
 		}
 	}
@@ -118,7 +145,7 @@ public class ChatDataManager : MonoBehaviour
 			//change heroin face
 			if (!string.IsNullOrEmpty(GetSpeech().facelook_filename))
 			{
-				characterFace.spriteName = GetSpeech().facelook_filename;
+				characterFace.ChangeFace(GetSpeech().facelook_filename);
 			}
 			//change bg
 			if(GetSpeech().bg != null && !string.IsNullOrEmpty(GetSpeech().bg))
@@ -133,7 +160,10 @@ public class ChatDataManager : MonoBehaviour
 			
 		}
 	}
-	
+	public void FaderCallback(int param)
+	{
+		Application.LoadLevel(param);
+	}
 	public void OnClick_Answer(int selectedItemIndex)
 	{
 		bool isSuccessAnswer = true;
@@ -164,11 +194,11 @@ public class ChatDataManager : MonoBehaviour
 		{
 			if(isSuccessAnswer)
 			{
-				characterFace.spriteName = GetSpeech().answerlist[selectedItemIndex].success_facelook_filename;
+				characterFace.ChangeFace(GetSpeech().answerlist[selectedItemIndex].success_facelook_filename);
 			}
 			else
 			{
-				characterFace.spriteName = GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename;
+				characterFace.ChangeFace(GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename);
 			}
 		}
 		
@@ -213,6 +243,5 @@ public class ChatDataManager : MonoBehaviour
 		questionBox.ChangeState(QuestionBox.STATE.QUESTION);
 		answerBox.ChangeState(AnswerBox.STATE.QUESTION);
 	}
-	
-	
+
 }

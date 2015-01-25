@@ -42,7 +42,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 
 	static void GetSceneScriptData(ref ChatData inputChatData, IWorkbook inputBook)
 	{
-		for(int scene_index = 1; scene_index < inputBook.NumberOfSheets; scene_index++)
+		for(int scene_index = 0; scene_index < inputBook.NumberOfSheets; scene_index++)
 		{
 			//Get Scene Information
 			ISheet sheet = inputBook.GetSheetAt(scene_index);
@@ -208,7 +208,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 						answer.success_reaction = inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_answer_first + i).StringCellValue; //same col and next row line has success reaction string 
 						answer.fail_reaction = inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_answer_first + i).StringCellValue; 
 						answer.next_scene_id_if_success = (int)inputSheet.GetRow(ix + row_answer_success_next_scene).GetCell(col_answer_first + i).NumericCellValue;
-						answer.next_scene_id_if_success = (int)inputSheet.GetRow(ix + row_answer_fail_next_scene).GetCell(col_answer_first + i).NumericCellValue;
+						answer.next_scene_id_if_fail = (int)inputSheet.GetRow(ix + row_answer_fail_next_scene).GetCell(col_answer_first + i).NumericCellValue;
 						if (inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_facelook) != null)
 							answer.success_facelook_filename = inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_facelook).StringCellValue; //same col and next row line has success reaction string 
 						if (inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_facelook) != null)
@@ -223,7 +223,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 						speech.answerlist.Add(answer); 
 					}
 					inputScreneScript.speech_list.Add(speech);
-					ix += 4;
+					ix += 5;
 				}
 				else
 				{

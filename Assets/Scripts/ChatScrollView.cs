@@ -67,11 +67,14 @@ public class ChatScrollView : MonoBehaviour
 			speakerLabel.text = girlFriendName;
 		}
 		questionLabel.text = chat;
-		questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
-		if (!isFishedAdded)
+		if(questionLabel.GetComponent<TypewriterEffect>())
 		{
-			questionLabel.GetComponent<TypewriterEffect>().onFinished.Add(new EventDelegate(()=> { ChatDataManager.Instance.textState = ChatDataManager.TextState.Finished; } ));
-			isFishedAdded = true;
+			questionLabel.GetComponent<TypewriterEffect>().ResetToBeginning();
+			if (!isFishedAdded)
+			{
+				questionLabel.GetComponent<TypewriterEffect>().onFinished.Add(new EventDelegate(()=> { ChatDataManager.Instance.textState = ChatDataManager.TextState.Finished; } ));
+				isFishedAdded = true;
+			}
 		}
 	}
 

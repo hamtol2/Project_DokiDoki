@@ -3,12 +3,14 @@ using System.Collections;
 
 public class LoadingScene : MonoBehaviour
 {
-	public int loadingSceneIndex = 2;
+	public int loadingSceneIndex = 1;
 	public float heartImageChangeTime = 1f;
 	public float sceneLoadDealyTime = 2f;
 	public UISprite bgSprite;
 	public string secondSprite;
 	public UISprite fadeoutSprite;
+
+
 
 	// Change start logo after 2 sec and load new scene.
 	IEnumerator Start()
