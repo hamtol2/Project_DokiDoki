@@ -24,6 +24,7 @@ public class ChatDataManager : MonoBehaviour
 	//public UISprite characterFace;
 	public CharacterStater characterFace;
 	public MyFader myFader;
+	public MyEffect myCamera;
 	public ChatData chatData;
 	public int curr_scene_script_index = 0;
 	private int curr_speech_index = 0;
@@ -53,7 +54,7 @@ public class ChatDataManager : MonoBehaviour
 		next_scene_index = -1;
 		//chatScrollView.Update_screen();
 		//Intro do not use fad in character function
-		if(Application.loadedLevel == 1)
+		if(Application.loadedLevel == 1 || Application.loadedLevel == 2 )
 		{
 			chatScrollView.UpdateScreen();
 		}
@@ -62,12 +63,15 @@ public class ChatDataManager : MonoBehaviour
 			characterFace.StartFadeShowing();
 		}
 		//change bg
-		if(GetSpeech().bg != null && !string.IsNullOrEmpty(GetSpeech().bg))
+		if(!string.IsNullOrEmpty(GetSpeech().bg))
 			bgController.ChangeBG(GetSpeech().bg);
+		//effect!!
+		if(!string.IsNullOrEmpty(GetSpeech().effect_name) && GetSpeech().effect_name.Equals("vibration"))
+			myCamera.ShakePosition();
 		//Change sound
-		if(GetSpeech().bgm_filename != null && !string.IsNullOrEmpty(GetSpeech().bgm_filename))
+		if(!string.IsNullOrEmpty(GetSpeech().bgm_filename))
 			bmgController.ChangeSound(GetSpeech().bgm_filename);
-		if(GetSpeech().sound_effect_filename != null && !string.IsNullOrEmpty(GetSpeech().sound_effect_filename))
+		if(!string.IsNullOrEmpty(GetSpeech().sound_effect_filename))
 			seController.ChangeSound(GetSpeech().sound_effect_filename);
 		
 		//change box style
@@ -147,8 +151,11 @@ public class ChatDataManager : MonoBehaviour
 			{
 				characterFace.ChangeFace(GetSpeech().facelook_filename);
 			}
+			//effect!!
+			if(!string.IsNullOrEmpty(GetSpeech().effect_name) && GetSpeech().effect_name.Equals("vibration"))
+				myCamera.ShakePosition();
 			//change bg
-			if(GetSpeech().bg != null && !string.IsNullOrEmpty(GetSpeech().bg))
+			if(!string.IsNullOrEmpty(GetSpeech().bg))
 				bgController.ChangeBG(GetSpeech().bg);
 			//Change sound
 			if(GetSpeech().bgm_filename != null && !string.IsNullOrEmpty(GetSpeech().bgm_filename))
@@ -178,6 +185,12 @@ public class ChatDataManager : MonoBehaviour
 			// success / fail.
 //			isSuccessAnswer = Random.Range(0,2);
 			isSuccessAnswer = Random.Range(0, 10) == 0 ? true : false;
+
+			//absolute not case;
+			if(GetSpeech().answerlist[selectedItemIndex].asolutely_not)
+			{
+				isSuccessAnswer = false;
+			}
 			if(isSuccessAnswer)
 			{
 				chatScrollView.UpdateQuestionLabel(ChatData.SceneScript.Speech.SPEAKER.WOMAN, GetSpeech().answerlist[selectedItemIndex].success_reaction);
@@ -201,7 +214,18 @@ public class ChatDataManager : MonoBehaviour
 				characterFace.ChangeFace(GetSpeech().answerlist[selectedItemIndex].fail_facelook_filename);
 			}
 		}
-		
+		//effect!!
+		if (!string.IsNullOrEmpty(GetSpeech().answerlist[selectedItemIndex].success_effect_name) &&
+		    GetSpeech().answerlist[selectedItemIndex].success_effect_name.Equals("vibration"))
+		{
+			myCamera.ShakePosition();
+		}
+		if (!string.IsNullOrEmpty(GetSpeech().answerlist[selectedItemIndex].fail_effect_name) &&
+		    GetSpeech().answerlist[selectedItemIndex].fail_effect_name.Equals("vibration"))
+		{
+			myCamera.ShakePosition();
+		}
+
 		//Change sound
 		string bgmFileName;
 		if(isSuccessAnswer)

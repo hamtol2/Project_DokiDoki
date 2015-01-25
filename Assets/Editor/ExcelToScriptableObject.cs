@@ -65,12 +65,13 @@ public class ExcelToScriptableObject : MonoBehaviour
 			const int col_speaker = 2;
 			const int col_question = 3;
 			const int col_bg = 4;
-			const int col_bgm = 5;
-			const int col_sound_effect = 6;
-			const int col_facelook = 7;
-			//const int col_reserved = 8;
-			const int col_answer_num = 9;
-			const int col_answer_first = 10;
+			const int col_effect = 5;
+			const int col_bgm = 6;
+			const int col_sound_effect = 7;
+			const int col_facelook = 8;
+			//const int col_reserved = 9;
+			const int col_answer_num = 10;
+			const int col_answer_first = 11;
 			
 			//this is row define relate to answer info
 			const int row_answer_content = 0;
@@ -103,7 +104,10 @@ public class ExcelToScriptableObject : MonoBehaviour
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
 					//set sound effect
 					if(row.GetCell(col_sound_effect) != null && row.GetCell(col_sound_effect).CellType != CellType.Blank)
-						speech.sound_effect_filename = row.GetCell(col_sound_effect).StringCellValue;
+						speech.effect_name = row.GetCell(col_sound_effect).StringCellValue;
+					//set effect
+					if(row.GetCell(col_effect) != null && row.GetCell(col_effect).CellType != CellType.Blank)
+						speech.effect_name = row.GetCell(col_effect).StringCellValue;
 					//set face
 					if (row.GetCell(col_facelook) != null)
 						speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
@@ -150,6 +154,9 @@ public class ExcelToScriptableObject : MonoBehaviour
 					//set sound effect
 					if(row.GetCell(col_sound_effect) != null && row.GetCell(col_sound_effect).CellType != CellType.Blank)
 						speech.sound_effect_filename = row.GetCell(col_sound_effect).StringCellValue;
+					//set effect
+					if(row.GetCell(col_effect) != null && row.GetCell(col_effect).CellType != CellType.Blank)
+						speech.effect_name = row.GetCell(col_effect).StringCellValue;
 					//set face
 					speech.facelook_filename = row.GetCell(col_facelook).StringCellValue;
 					//set BG
@@ -192,6 +199,9 @@ public class ExcelToScriptableObject : MonoBehaviour
 					//set sound effect
 					if(row.GetCell(col_sound_effect) != null && row.GetCell(col_sound_effect).CellType != CellType.Blank)
 						speech.sound_effect_filename = row.GetCell(col_sound_effect).StringCellValue;
+					//set effect
+					if(row.GetCell(col_effect) != null && row.GetCell(col_effect).CellType != CellType.Blank)
+						speech.effect_name = row.GetCell(col_effect).StringCellValue;
 					//set BG
 					if(row.GetCell(col_bg) != null && row.GetCell(col_bg).CellType != CellType.Blank)
 						speech.bg = row.GetCell(col_bg).StringCellValue;
@@ -217,8 +227,10 @@ public class ExcelToScriptableObject : MonoBehaviour
 							answer.success_bgm_filename = inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_bgm).StringCellValue; //same col and next row line has success reaction string 
 						if (inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_bgm) != null)
 							answer.fail_bgm_filename = inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_bgm).StringCellValue; //same col and next row line has success reaction string 
-
-
+						if (inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_effect) != null)
+							answer.success_bgm_filename = inputSheet.GetRow(ix + row_answer_success_react).GetCell(col_effect).StringCellValue; //same col and next row line has success reaction string 
+						if (inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_effect) != null)
+							answer.fail_bgm_filename = inputSheet.GetRow(ix + row_answer_fail_react).GetCell(col_effect).StringCellValue; //same col and next row line has success reaction string 
 
 						speech.answerlist.Add(answer); 
 					}
