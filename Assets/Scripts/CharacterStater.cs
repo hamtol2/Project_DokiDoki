@@ -48,5 +48,9 @@ public class CharacterStater : MonoBehaviour
 			sprites[0].color = color;
 		}
 		sprites[1].spriteName = filename;
+		sprites[1].spriteName = filename;
+		Color color1 = sprites[1].color;
+		color1.a = 1f;
+		sprites[1].color = color1;
 	}
 }

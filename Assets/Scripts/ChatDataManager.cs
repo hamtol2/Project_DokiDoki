@@ -29,7 +29,7 @@ public class ChatDataManager : MonoBehaviour
 	public int curr_scene_script_index = 0;
 	private int curr_speech_index = 0;
 	private int next_scene_index = -1;
-	
+	private int scene_change_margin = 0;
 	private string fileName = "SpeechDB_Test";
 	//private string fileName = "ChatDB";
 	
@@ -54,7 +54,7 @@ public class ChatDataManager : MonoBehaviour
 		next_scene_index = -1;
 		//chatScrollView.Update_screen();
 		//Intro do not use fad in character function
-		if(Application.loadedLevel == 1 || Application.loadedLevel == 2 )
+		if(Application.loadedLevel == 1 || Application.loadedLevel == 3 )
 		{
 			chatScrollView.UpdateScreen();
 		}
@@ -116,7 +116,7 @@ public class ChatDataManager : MonoBehaviour
 				}
 				else
 				{
-					myFader.StartFade(next_scene_index);
+					myFader.StartFade(next_scene_index + scene_change_margin);
 					//Application.LoadLevel(next_scene_index);
 				}
 			}
@@ -184,7 +184,7 @@ public class ChatDataManager : MonoBehaviour
 		{
 			// success / fail.
 //			isSuccessAnswer = Random.Range(0,2);
-			isSuccessAnswer = Random.Range(0, 10) == 0 ? true : false;
+			isSuccessAnswer = Random.Range(0, 2) == 0 ? true : false;
 
 			//absolute not case;
 			if(GetSpeech().answerlist[selectedItemIndex].asolutely_not)

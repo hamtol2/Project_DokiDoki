@@ -9,7 +9,7 @@ public class LoadingScene : MonoBehaviour
 	public UISprite bgSprite;
 	public string secondSprite;
 	public UISprite fadeoutSprite;
-
+	public bool touchNeeded;
 
 
 	// Change start logo after 2 sec and load new scene.
@@ -17,7 +17,6 @@ public class LoadingScene : MonoBehaviour
 	{
 		yield return new WaitForSeconds(heartImageChangeTime);
 		bgSprite.spriteName = secondSprite;
-
 		yield return new WaitForSeconds(sceneLoadDealyTime);
 		while (fadeoutSprite.color.a < 1f)
 		{
@@ -28,7 +27,11 @@ public class LoadingScene : MonoBehaviour
 
 			yield return null;
 		}
-
-		Application.LoadLevel(loadingSceneIndex);
+		if(!touchNeeded)
+		{
+			Application.LoadLevel(loadingSceneIndex);
+		}
 	}
+
+
 }

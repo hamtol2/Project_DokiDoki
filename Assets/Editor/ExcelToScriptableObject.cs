@@ -104,7 +104,7 @@ public class ExcelToScriptableObject : MonoBehaviour
 						speech.bgm_filename = row.GetCell(col_bgm).StringCellValue;
 					//set sound effect
 					if(row.GetCell(col_sound_effect) != null && row.GetCell(col_sound_effect).CellType != CellType.Blank)
-						speech.effect_name = row.GetCell(col_sound_effect).StringCellValue;
+						speech.sound_effect_filename = row.GetCell(col_sound_effect).StringCellValue;
 					//set effect
 					if(row.GetCell(col_effect) != null && row.GetCell(col_effect).CellType != CellType.Blank)
 						speech.effect_name = row.GetCell(col_effect).StringCellValue;
